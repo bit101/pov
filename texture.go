@@ -40,7 +40,7 @@ func (t *Texture) String() string {
 		return fmt.Sprintf(`
   texture {
     pigment { color %s }
-		%s
+    %s
   }`, t.color, t.Transform.String())
 	}
 
@@ -48,7 +48,7 @@ func (t *Texture) String() string {
 		return fmt.Sprintf(`
   texture {
     pigment { rgb %s }
-		%s
+    %s
   }`, t.rgb.String(), t.Transform.String())
 	}
 	return "texture { pigment { color White } }"

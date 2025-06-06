@@ -5,14 +5,15 @@ import "fmt"
 
 // Sphere ...
 type Sphere struct {
-	location Vector3
-	radius   float64
-	Texture  *Texture
+	location  Vector3
+	radius    float64
+	Texture   *Texture
+	Transform Transform
 }
 
 // NewSphere ...
 func NewSphere(x, y, z, radius float64) Sphere {
-	return Sphere{Vector3{x, y, z}, radius, NewColorTexture("White", UniScale(1))}
+	return Sphere{Vector3{x, y, z}, radius, NewColorTexture("White", UniScale(1)), UniScale(1)}
 }
 
 // String ...
@@ -22,8 +23,9 @@ sphere {
   %s
   %f
   %s
+  %s
 }
-`, s.location.String(), s.radius, s.Texture.String())
+`, s.location.String(), s.radius, s.Texture.String(), s.Transform.String())
 }
 
 /*

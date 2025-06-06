@@ -38,16 +38,18 @@ func main() {
 	scene.Camera.Position(4, 2.25, -3)
 
 	tex := pov.NewPresetTexture(tex.Stone30, pov.UniScale(2))
-	tex.Transform.Translate = pov.NewVector3(1, 0, 0)
+	tex.Transform.Translate(1, 0, 0)
 	count := 512.0
 	for i := 0.0; i < count; i++ {
 		t := i / count * blmath.Tau
 		x := math.Cos(t) * 2.5
 		z := math.Sin(t) * 2.5
-		y := math.Cos(t*4)*0.5 + 0.5
+		y := math.Cos(t*4)*0.5 + 1.5
 		r := math.Sin(t*8)*0.2 + 0.3
 		s := pov.NewSphere(x, y, z, r)
 		s.Texture = tex
+		s.Transform.Scale3(1, 0.1, 1)
+		// s.Transform.Rotate(90, 0, 0)
 		scene.AddObject(s)
 	}
 
