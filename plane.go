@@ -5,20 +5,20 @@ import "fmt"
 
 // Plane ...
 type Plane struct {
-	y float64
+	y       float64
+	Texture *Texture
 }
 
 // NewPlane ...
 func NewPlane(y float64) *Plane {
-	return &Plane{y}
+	return &Plane{y, NewColorTexture("White", 1)}
 }
 
 func (p *Plane) String() string {
 	return fmt.Sprintf(`
 plane {
-  y, %f
-  texture {
-    T_Stone27
-  }
-}`, p.y)
+  y
+  %f
+  %s
+}`, p.y, p.Texture.String())
 }

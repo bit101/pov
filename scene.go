@@ -17,6 +17,7 @@ type Scene struct {
 	atmosphericEffects []AtmosphericEffect
 	globalSettings     []string
 	width, height      int
+	ambient            Vector3
 }
 
 // Object ...
@@ -30,11 +31,11 @@ type AtmosphericEffect string
 // NewScene ...
 func NewScene() *Scene {
 	scene := &Scene{}
-	camera := NewCamera(2, 2, -5)
-	camera.LookAt(0, 0, 0)
-	scene.Camera = camera
-	scene.width = 640
-	scene.height = 480
+	scene.Camera = NewCamera(2, 2, -5)
+	scene.SetAmbient(1, 1, 1)
+	scene.SetSize(640, 480)
+	scene.AddInclude("stdinc.inc")
+	scene.AddInclude("textures.inc")
 	return scene
 }
 
@@ -52,6 +53,11 @@ func (s *Scene) AddInclude(include string) {
 func (s *Scene) SetSize(w, h int) {
 	s.width = w
 	s.height = h
+}
+
+// SetAmbient ...
+func (s *Scene) SetAmbient(r, g, b float64) {
+	s.ambient = *&Vector3{r, g, b}
 }
 
 // AddLight ...
@@ -80,6 +86,7 @@ func (s *Scene) Render(filename string) {
 	for _, directive := range s.languageDirectives {
 		str += string(directive) + "\n"
 	}
+	str += fmt.Sprintf("global_settings { ambient_light rgb %s }\n", s.ambient.String())
 	str += s.Camera.String() + "\n"
 	for _, light := range s.lights {
 		str += light.String() + "\n"
