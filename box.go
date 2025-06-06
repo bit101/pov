@@ -5,14 +5,14 @@ import "fmt"
 
 // Box ...
 type Box struct {
-	cornerA, cornerB *Location
+	cornerA, cornerB Vector3
 }
 
 // NewBox ...
 func NewBox(x, y, z, w, h, d float64) *Box {
 	return &Box{
-		NewLocation(x-w/2, y-h/2, z-d/2),
-		NewLocation(x+w/2, y+h/2, z+d/2),
+		Vector3{x - w/2, y - h/2, z - d/2},
+		Vector3{x + w/2, y + h/2, z + d/2},
 	}
 }
 
@@ -25,5 +25,5 @@ box {
     T_Stone4
   }
 }
-`, b.cornerA, b.cornerB)
+`, b.cornerA.String(), b.cornerB.String())
 }

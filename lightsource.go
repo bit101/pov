@@ -5,13 +5,13 @@ import "fmt"
 
 // LightSource ...
 type LightSource struct {
-	location *Location
+	location Vector3
 	color    string
 }
 
 // NewLightSource ...
 func NewLightSource(x, y, z float64, color string) *LightSource {
-	return &LightSource{NewLocation(x, y, z), color}
+	return &LightSource{Vector3{x, y, z}, color}
 }
 
 func (l *LightSource) String() string {

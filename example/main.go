@@ -22,7 +22,7 @@ func main() {
 	scene.AddObject(pov.NewPlane(0.0))
 	scene.AddObject(pov.NewBox(0, 0, 0, 2.5, 1.5, 2.5))
 	scene.AddObject(pov.NewBackgroundRGB(0.1, 0.2, 0.5))
-	scene.Camera.Position(0, 0.5, -8)
+	scene.Camera.Position(0, 4.5, -6)
 
 	count := 64.0
 	for i := 0.0; i < count; i++ {

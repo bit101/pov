@@ -15,7 +15,8 @@ func NewBackground(color string) *Background {
 
 // NewBackgroundRGB ...
 func NewBackgroundRGB(r, g, b float64) *Background {
-	return &Background{fmt.Sprintf("<%f, %f, %f>", r, g, b)}
+	color := Vector3{r, g, b}
+	return &Background{color.String()}
 }
 
 // String ...

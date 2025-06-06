@@ -5,20 +5,21 @@ import "fmt"
 
 // Sphere ...
 type Sphere struct {
-	location *Location
+	location Vector3
 	radius   float64
 }
 
 // NewSphere ...
 func NewSphere(x, y, z, radius float64) Sphere {
-	return Sphere{NewLocation(x, y, z), radius}
+	return Sphere{Vector3{x, y, z}, radius}
 }
 
 // String ...
 func (s Sphere) String() string {
 	return fmt.Sprintf(`
 sphere {
-  %s, %f
+  %s
+	%f
   texture {
     T_Stone30
   }
