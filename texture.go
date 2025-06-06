@@ -5,25 +5,25 @@ import "fmt"
 
 // Texture ...
 type Texture struct {
-	preset string
-	color  string
-	scale  float64
-	rgb    *Vector3
+	preset    string
+	color     string
+	Transform Transform
+	rgb       *Vector3
 }
 
 // NewPresetTexture ...
-func NewPresetTexture(preset string, scale float64) *Texture {
-	return &Texture{preset: preset, scale: scale}
+func NewPresetTexture(preset string, transform Transform) *Texture {
+	return &Texture{preset: preset, Transform: transform}
 }
 
 // NewColorTexture ...
-func NewColorTexture(color string, scale float64) *Texture {
-	return &Texture{color: color, scale: scale}
+func NewColorTexture(color string, transform Transform) *Texture {
+	return &Texture{color: color, Transform: transform}
 }
 
 // NewRGBTexture ...
-func NewRGBTexture(r, g, b float64, scale float64) *Texture {
-	return &Texture{rgb: &Vector3{r, g, b}, scale: scale}
+func NewRGBTexture(r, g, b float64, transform Transform) *Texture {
+	return &Texture{rgb: &Vector3{r, g, b}, Transform: transform}
 }
 
 // String ...
@@ -32,24 +32,24 @@ func (t *Texture) String() string {
 		return fmt.Sprintf(`
   texture {
     %s
-    scale <%f, %f, %f>
-  }`, t.preset, t.scale, t.scale, t.scale)
+    %s
+  }`, t.preset, t.Transform.String())
 	}
 
 	if t.color != "" {
 		return fmt.Sprintf(`
   texture {
     pigment { color %s }
-    scale <%f, %f, %f>
-  }`, t.color, t.scale, t.scale, t.scale)
+		%s
+  }`, t.color, t.Transform.String())
 	}
 
 	if t.rgb != nil {
 		return fmt.Sprintf(`
   texture {
     pigment { rgb %s }
-    scale <%f, %f, %f>
-  }`, t.rgb.String(), t.scale, t.scale, t.scale)
+		%s
+  }`, t.rgb.String(), t.Transform.String())
 	}
 	return "texture { pigment { color White } }"
 }

@@ -12,7 +12,7 @@ type Sphere struct {
 
 // NewSphere ...
 func NewSphere(x, y, z, radius float64) Sphere {
-	return Sphere{Vector3{x, y, z}, radius, NewColorTexture("White", 1)}
+	return Sphere{Vector3{x, y, z}, radius, NewColorTexture("White", UniScale(1))}
 }
 
 // String ...

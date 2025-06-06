@@ -11,7 +11,7 @@ type Plane struct {
 
 // NewPlane ...
 func NewPlane(y float64) *Plane {
-	return &Plane{y, NewColorTexture("White", 1)}
+	return &Plane{y, NewColorTexture("White", UniScale(1))}
 }
 
 func (p *Plane) String() string {

@@ -14,7 +14,7 @@ func NewBox(x, y, z, w, h, d float64) *Box {
 	return &Box{
 		Vector3{x - w/2, y - h/2, z - d/2},
 		Vector3{x + w/2, y + h/2, z + d/2},
-		NewColorTexture("White", 1),
+		NewColorTexture("White", UniScale(1)),
 	}
 }
 
