@@ -1,7 +1,11 @@
 // Package pov ...
 package pov
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/bit101/pov/utils"
+)
 
 // Box ...
 type Box struct {
@@ -28,7 +32,7 @@ func NewBoxFromPoints(x0, y0, z0, x1, y1, z1 float64) *Box {
 }
 
 func (b *Box) String() string {
-	return fmt.Sprintf(`
+	str := fmt.Sprintf(`
 box {
   %s
   %s
@@ -36,4 +40,5 @@ box {
   %s
 }
 `, b.cornerA.String(), b.cornerB.String(), b.Texture.String(), b.transform.String())
+	return utils.RemoveEmptyLines(str)
 }

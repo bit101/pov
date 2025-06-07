@@ -1,7 +1,11 @@
 // Package pov ...
 package pov
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/bit101/pov/utils"
+)
 
 // Sphere ...
 type Sphere struct {
@@ -17,12 +21,12 @@ func NewSphere(x, y, z, radius float64) Sphere {
 
 // String ...
 func (s Sphere) String() string {
-	return fmt.Sprintf(`
+	str := fmt.Sprintf(`
 sphere {
   %s
   %f
   %s
   %s
-}
-`, s.location.String(), s.radius, s.Texture.String(), s.transform.String())
+}`, s.location.String(), s.radius, s.Texture.String(), s.transform.String())
+	return utils.RemoveEmptyLines(str)
 }

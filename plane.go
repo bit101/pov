@@ -1,7 +1,11 @@
 // Package pov ...
 package pov
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/bit101/pov/utils"
+)
 
 // Plane ...
 type Plane struct {
@@ -15,10 +19,12 @@ func NewPlane(y float64) *Plane {
 }
 
 func (p *Plane) String() string {
-	return fmt.Sprintf(`
+	str := fmt.Sprintf(`
 plane {
   y
   %f
   %s
-}`, p.y, p.Texture.String())
+  %s
+}`, p.y, p.Texture.String(), p.transform.String())
+	return utils.RemoveEmptyLines(str)
 }

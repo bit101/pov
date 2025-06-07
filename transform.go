@@ -32,7 +32,7 @@ func (t *Transform) Rotate(x, y, z float64) {
 func (t *Transform) String() string {
 	str := ""
 	for _, transform := range t.transforms {
-		str += transform + "\n"
+		str += transform
 	}
 	return str
 }

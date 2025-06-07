@@ -11,18 +11,18 @@ type Texture struct {
 	rgb       *Vector3
 }
 
-// NewPresetTexture ...
-func NewPresetTexture(preset string) *Texture {
+// PresetTexture ...
+func PresetTexture(preset string) *Texture {
 	return &Texture{preset: preset, transform: Transform{}}
 }
 
-// NewColorTexture ...
-func NewColorTexture(color string) *Texture {
+// ColorTexture ...
+func ColorTexture(color string) *Texture {
 	return &Texture{color: color, transform: Transform{}}
 }
 
-// NewRGBTexture ...
-func NewRGBTexture(r, g, b float64) *Texture {
+// RGBTexture ...
+func RGBTexture(r, g, b float64) *Texture {
 	return &Texture{rgb: &Vector3{r, g, b}, transform: Transform{}}
 }
 

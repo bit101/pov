@@ -11,7 +11,7 @@ type Object struct {
 func NewObject() Object {
 	return Object{
 		Transform{},
-		NewColorTexture("White"),
+		ColorTexture("White"),
 	}
 }
 

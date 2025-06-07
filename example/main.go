@@ -6,7 +6,10 @@ import (
 
 	"github.com/bit101/bitlib/blmath"
 	"github.com/bit101/pov"
-	"github.com/bit101/pov/tex"
+	"github.com/bit101/pov/tex/metal"
+	"github.com/bit101/pov/tex/sky"
+	"github.com/bit101/pov/tex/stone"
+	"github.com/bit101/pov/tex/wood"
 )
 
 //////////////////////////////
@@ -16,31 +19,32 @@ import (
 func main() {
 	scene := pov.NewScene()
 	scene.AddInclude("stones.inc")
+	scene.AddInclude("woods.inc")
 	scene.SetSize(800, 800)
 	scene.SetAmbient(0.2, 0.2, 0.0)
 
 	scene.AddLight(pov.NewLightSource(-4, 8, 1, "White"))
 	scene.AddLight(pov.NewLightSource(20, 6, -5, "Gray"))
 
-	sky := pov.NewSphere(0, 0, 0, 1000)
-	sky.Texture = pov.NewPresetTexture("Blue_Sky")
-	sky.Texture.UniScale(1000)
-	scene.AddObject(sky)
+	s := pov.NewSphere(0, 0, 0, 1000)
+	s.Texture = pov.PresetTexture(sky.BrightBlueSky)
+	s.Texture.UniScale(1000)
+	scene.AddObject(s)
 
 	plane := pov.NewPlane(0.0)
-	plane.Texture = pov.NewPresetTexture(tex.Stone33)
+	plane.Texture = pov.PresetTexture(stone.Stone33)
 	plane.Texture.UniScale(5)
 	scene.AddObject(plane)
 
 	box := pov.NewBox(0, 0.5, 0, 1, 1, 1)
-	box.Texture = pov.NewPresetTexture(tex.Stone38)
-	box.Texture.UniScale(1)
+	box.Texture = pov.PresetTexture(wood.TWood34)
+	box.Texture.Scale(0.2, 0.2, 0.2)
 	box.Scale(2, 2, 2)
 	scene.AddObject(box)
 
-	scene.Camera.Position(4, 2.25, -4)
+	scene.Camera.Position(4, 0.25, -4)
 
-	txt := pov.NewPresetTexture(tex.SilverFinish)
+	txt := pov.PresetTexture(metal.SilverFinish)
 	count := 64.0
 	for i := 0.0; i < count; i++ {
 		t := i / count * blmath.Tau
