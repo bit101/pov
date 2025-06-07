@@ -8,12 +8,32 @@ type Sphere struct {
 	location  Vector3
 	radius    float64
 	Texture   *Texture
-	Transform Transform
+	transform Transform
 }
 
 // NewSphere ...
 func NewSphere(x, y, z, radius float64) Sphere {
-	return Sphere{Vector3{x, y, z}, radius, NewColorTexture("White", UniScale(1)), UniScale(1)}
+	return Sphere{Vector3{x, y, z}, radius, NewColorTexture("White"), Transform{}}
+}
+
+// UniScale ...
+func (s *Sphere) UniScale(scale float64) {
+	s.transform.UniScale(scale)
+}
+
+// Scale ...
+func (s *Sphere) Scale(x, y, z float64) {
+	s.transform.Scale(x, y, z)
+}
+
+// Translate ...
+func (s *Sphere) Translate(x, y, z float64) {
+	s.transform.Translate(x, y, z)
+}
+
+// Rotate ...
+func (s *Sphere) Rotate(x, y, z float64) {
+	s.transform.Rotate(x, y, z)
 }
 
 // String ...
@@ -25,7 +45,7 @@ sphere {
   %s
   %s
 }
-`, s.location.String(), s.radius, s.Texture.String(), s.Transform.String())
+`, s.location.String(), s.radius, s.Texture.String(), s.transform.String())
 }
 
 /*

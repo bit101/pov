@@ -7,23 +7,43 @@ import "fmt"
 type Texture struct {
 	preset    string
 	color     string
-	Transform Transform
+	transform Transform
 	rgb       *Vector3
 }
 
 // NewPresetTexture ...
-func NewPresetTexture(preset string, transform Transform) *Texture {
-	return &Texture{preset: preset, Transform: transform}
+func NewPresetTexture(preset string) *Texture {
+	return &Texture{preset: preset, transform: Transform{}}
 }
 
 // NewColorTexture ...
-func NewColorTexture(color string, transform Transform) *Texture {
-	return &Texture{color: color, Transform: transform}
+func NewColorTexture(color string) *Texture {
+	return &Texture{color: color, transform: Transform{}}
 }
 
 // NewRGBTexture ...
-func NewRGBTexture(r, g, b float64, transform Transform) *Texture {
-	return &Texture{rgb: &Vector3{r, g, b}, Transform: transform}
+func NewRGBTexture(r, g, b float64) *Texture {
+	return &Texture{rgb: &Vector3{r, g, b}, transform: Transform{}}
+}
+
+// UniScale ...
+func (t *Texture) UniScale(scale float64) {
+	t.transform.UniScale(scale)
+}
+
+// Scale ...
+func (t *Texture) Scale(x, y, z float64) {
+	t.transform.Scale(x, y, z)
+}
+
+// Translate ...
+func (t *Texture) Translate(x, y, z float64) {
+	t.transform.Translate(x, y, z)
+}
+
+// Rotate ...
+func (t *Texture) Rotate(x, y, z float64) {
+	t.transform.Rotate(x, y, z)
 }
 
 // String ...
@@ -33,7 +53,7 @@ func (t *Texture) String() string {
   texture {
     %s
     %s
-  }`, t.preset, t.Transform.String())
+  }`, t.preset, t.transform.String())
 	}
 
 	if t.color != "" {
@@ -41,7 +61,7 @@ func (t *Texture) String() string {
   texture {
     pigment { color %s }
     %s
-  }`, t.color, t.Transform.String())
+  }`, t.color, t.transform.String())
 	}
 
 	if t.rgb != nil {
@@ -49,7 +69,7 @@ func (t *Texture) String() string {
   texture {
     pigment { rgb %s }
     %s
-  }`, t.rgb.String(), t.Transform.String())
+  }`, t.rgb.String(), t.transform.String())
 	}
 	return "texture { pigment { color White } }"
 }
