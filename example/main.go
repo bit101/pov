@@ -9,7 +9,6 @@ import (
 	"github.com/bit101/pov/tex/metal"
 	"github.com/bit101/pov/tex/sky"
 	"github.com/bit101/pov/tex/stone"
-	"github.com/bit101/pov/tex/wood"
 )
 
 //////////////////////////////
@@ -21,7 +20,7 @@ func main() {
 	scene.AddInclude("stones.inc")
 	scene.AddInclude("woods.inc")
 	scene.SetSize(800, 800)
-	scene.SetAmbient(0.2, 0.2, 0.0)
+	// scene.SetAmbient(0.2, 0.2, 0.0)
 
 	scene.AddLight(pov.NewLightSource(-4, 8, 1, "White"))
 	scene.AddLight(pov.NewLightSource(20, 6, -5, "Gray"))
@@ -36,13 +35,17 @@ func main() {
 	plane.Texture.UniScale(5)
 	scene.AddObject(plane)
 
-	box := pov.NewBox(0, 0.5, 0, 1, 1, 1)
-	box.Texture = pov.PresetTexture(wood.TWood34)
-	box.Texture.Scale(0.2, 0.2, 0.2)
-	box.Scale(2, 2, 2)
-	scene.AddObject(box)
+	// box := pov.NewBox(0, 0.5, 0, 1, 1, 1)
+	// box.Texture = pov.PresetTexture(wood.TWood34)
+	// box.Texture.Scale(0.2, 0.2, 0.2)
+	// box.Scale(2, 2, 2)
+	// scene.AddObject(box)
 
-	scene.Camera.Position(4, 0.25, -4)
+	cone := pov.NewCylinder(0, 0, 0, 0, 3, 0, 1)
+	cone.Texture = pov.PresetTexture(stone.RedMarble)
+	scene.AddObject(cone)
+
+	scene.Camera.Position(4, 1.25, -4)
 
 	txt := pov.PresetTexture(metal.SilverFinish)
 	count := 64.0
