@@ -17,12 +17,12 @@ type Cone struct {
 }
 
 // NewCone ...
-func NewCone(x0, y0, z0, radius0, x1, y1, z1, radius1 float64) Cone {
-	return Cone{NewObject(), Vector3{x0, y0, z0}, radius0, Vector3{x1, y1, z1}, radius1}
+func NewCone(x0, y0, z0, radius0, x1, y1, z1, radius1 float64) *Cone {
+	return &Cone{NewObject(), Vector3{x0, y0, z0}, radius0, Vector3{x1, y1, z1}, radius1}
 }
 
 // String ...
-func (c Cone) String() string {
+func (c *Cone) String() string {
 	str := fmt.Sprintf(`
 cone {
   %s

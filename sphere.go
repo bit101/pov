@@ -15,12 +15,12 @@ type Sphere struct {
 }
 
 // NewSphere ...
-func NewSphere(x, y, z, radius float64) Sphere {
-	return Sphere{NewObject(), Vector3{x, y, z}, radius}
+func NewSphere(x, y, z, radius float64) *Sphere {
+	return &Sphere{NewObject(), Vector3{x, y, z}, radius}
 }
 
 // String ...
-func (s Sphere) String() string {
+func (s *Sphere) String() string {
 	str := fmt.Sprintf(`
 sphere {
   %s

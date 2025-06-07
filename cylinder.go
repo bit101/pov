@@ -16,12 +16,12 @@ type Cylinder struct {
 }
 
 // NewCylinder ...
-func NewCylinder(x0, y0, z0, x1, y1, z1, radius float64) Cylinder {
-	return Cylinder{NewObject(), Vector3{x0, y0, z0}, Vector3{x1, y1, z1}, radius}
+func NewCylinder(x0, y0, z0, x1, y1, z1, radius float64) *Cylinder {
+	return &Cylinder{NewObject(), Vector3{x0, y0, z0}, Vector3{x1, y1, z1}, radius}
 }
 
 // String ...
-func (c Cylinder) String() string {
+func (c *Cylinder) String() string {
 	str := fmt.Sprintf(`
 cylinder {
   %s
