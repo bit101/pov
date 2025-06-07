@@ -5,13 +5,13 @@ import "fmt"
 
 // Plane ...
 type Plane struct {
-	y       float64
-	Texture *Texture
+	Object
+	y float64
 }
 
 // NewPlane ...
 func NewPlane(y float64) *Plane {
-	return &Plane{y, NewColorTexture("White")}
+	return &Plane{NewObject(), y}
 }
 
 func (p *Plane) String() string {

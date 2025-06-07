@@ -16,7 +16,7 @@ import (
 func main() {
 	scene := pov.NewScene()
 	scene.AddInclude("stones.inc")
-	scene.SetSize(1600, 1600)
+	scene.SetSize(800, 800)
 	scene.SetAmbient(0.2, 0.2, 0.0)
 
 	scene.AddLight(pov.NewLightSource(-4, 8, 1, "White"))
@@ -35,6 +35,7 @@ func main() {
 	box := pov.NewBox(0, 0.5, 0, 1, 1, 1)
 	box.Texture = pov.NewPresetTexture(tex.Stone38)
 	box.Texture.UniScale(1)
+	box.Scale(2, 2, 2)
 	scene.AddObject(box)
 
 	scene.Camera.Position(4, 2.25, -4)

@@ -13,15 +13,15 @@ type Scene struct {
 	languageDirectives []string
 	Camera             *Camera
 	lights             []*LightSource
-	objects            []Object
+	renderables        []Renderable
 	atmosphericEffects []AtmosphericEffect
 	globalSettings     []string
 	width, height      int
 	ambient            Vector3
 }
 
-// Object ...
-type Object interface {
+// Renderable ...
+type Renderable interface {
 	String() string
 }
 
@@ -66,8 +66,8 @@ func (s *Scene) AddLight(light *LightSource) {
 }
 
 // AddObject ...
-func (s *Scene) AddObject(object Object) {
-	s.objects = append(s.objects, object)
+func (s *Scene) AddObject(obj Renderable) {
+	s.renderables = append(s.renderables, obj)
 }
 
 // AddAtmosphericEffect ...
@@ -91,8 +91,8 @@ func (s *Scene) Render(filename string) {
 	for _, light := range s.lights {
 		str += light.String() + "\n"
 	}
-	for _, object := range s.objects {
-		str += object.String() + "\n"
+	for _, obj := range s.renderables {
+		str += obj.String() + "\n"
 	}
 	for _, effect := range s.atmosphericEffects {
 		str += string(effect) + "\n"

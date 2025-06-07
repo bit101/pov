@@ -5,38 +5,25 @@ import "fmt"
 
 // Box ...
 type Box struct {
+	Object
 	cornerA, cornerB Vector3
-	transform        Transform
-	Texture          *Texture
-}
-
-// UniScale ...
-func (b *Box) UniScale(scale float64) {
-	b.transform.UniScale(scale)
-}
-
-// Scale ...
-func (b *Box) Scale(x, y, z float64) {
-	b.transform.Scale(x, y, z)
-}
-
-// Translate ...
-func (b *Box) Translate(x, y, z float64) {
-	b.transform.Translate(x, y, z)
-}
-
-// Rotate ...
-func (b *Box) Rotate(x, y, z float64) {
-	b.transform.Rotate(x, y, z)
 }
 
 // NewBox ...
 func NewBox(x, y, z, w, h, d float64) *Box {
 	return &Box{
+		NewObject(),
 		Vector3{x - w/2, y - h/2, z - d/2},
 		Vector3{x + w/2, y + h/2, z + d/2},
-		Transform{},
-		NewColorTexture("White"),
+	}
+}
+
+// NewBoxFromPoints ...
+func NewBoxFromPoints(x0, y0, z0, x1, y1, z1 float64) *Box {
+	return &Box{
+		NewObject(),
+		Vector3{x0, y0, z0},
+		Vector3{x1, y1, z1},
 	}
 }
 
