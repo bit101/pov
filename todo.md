@@ -1,0 +1,8 @@
+- use go templates
+- more primitives
+    - blob
+    - height field
+    - lathe
+    - ovus
+    - sphere sweep
+    - surface of revolution
