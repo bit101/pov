@@ -28,6 +28,11 @@ func (t *Transform) Rotate(x, y, z float64) {
 	t.transforms = append(t.transforms, fmt.Sprintf("rotate <%f, %f, %f>", x, y, z))
 }
 
+// StringTransform ...
+func (t *Transform) StringTransform(s string) {
+	t.transforms = append(t.transforms, s)
+}
+
 // String ...
 func (t *Transform) String() string {
 	str := ""

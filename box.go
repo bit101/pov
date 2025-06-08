@@ -10,15 +10,15 @@ import (
 // Box ...
 type Box struct {
 	Object
-	cornerA, cornerB Vector3
+	cornerA, cornerB string
 }
 
 // NewBox ...
 func NewBox(x, y, z, w, h, d float64) *Box {
 	return &Box{
 		NewObject(),
-		Vector3{x - w/2, y - h/2, z - d/2},
-		Vector3{x + w/2, y + h/2, z + d/2},
+		NewVector3(x-w/2, y-h/2, z-d/2).String(),
+		NewVector3(x+w/2, y+h/2, z+d/2).String(),
 	}
 }
 
@@ -26,8 +26,8 @@ func NewBox(x, y, z, w, h, d float64) *Box {
 func NewBoxFromPoints(x0, y0, z0, x1, y1, z1 float64) *Box {
 	return &Box{
 		NewObject(),
-		Vector3{x0, y0, z0},
-		Vector3{x1, y1, z1},
+		NewVector3(x0, y0, z0).String(),
+		NewVector3(x1, y1, z1).String(),
 	}
 }
 
@@ -38,7 +38,6 @@ box {
   %s
   %s
   %s
-}
-`, b.cornerA.String(), b.cornerB.String(), b.Texture.String(), b.transform.String())
+}`, b.cornerA, b.cornerB, b.Texture.String(), b.transform.String())
 	return utils.RemoveEmptyLines(str)
 }

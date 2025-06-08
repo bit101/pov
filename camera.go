@@ -5,26 +5,26 @@ import "fmt"
 
 // Camera ...
 type Camera struct {
-	location Vector3
-	lookAt   Vector3
+	location string
+	lookAt   string
 }
 
 // NewCamera ...
 func NewCamera(x, y, z float64) *Camera {
 	return &Camera{
-		Vector3{x, y, z},
-		Vector3{0, 0, 0},
+		NewVector3(x, y, z).String(),
+		NewVector3(0, 0, 0).String(),
 	}
 }
 
 // LookAt ...
 func (c *Camera) LookAt(x, y, z float64) {
-	c.lookAt = Vector3{x, y, z}
+	c.lookAt = NewVector3(x, y, z).String()
 }
 
 // Position ...
 func (c *Camera) Position(x, y, z float64) {
-	c.location = Vector3{x, y, z}
+	c.location = NewVector3(x, y, z).String()
 }
 
 // String ...
@@ -35,7 +35,7 @@ camera {
   location %s
   look_at  %s
 }`,
-		c.location.String(),
-		c.lookAt.String(),
+		c.location,
+		c.lookAt,
 	)
 }

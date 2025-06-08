@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"strings"
 	"time"
 )
 
@@ -18,6 +19,7 @@ type Scene struct {
 	globalSettings     []string
 	width, height      int
 	ambient            Vector3
+	filename           string
 }
 
 // Renderable ...
@@ -31,10 +33,9 @@ type AtmosphericEffect string
 var currentTime time.Time
 
 // NewScene ...
-func NewScene() *Scene {
-	fmt.Print("building scene...  ")
-	currentTime = time.Now()
+func NewScene(filename string) *Scene {
 	scene := &Scene{}
+	scene.filename = filename
 	scene.Camera = NewCamera(2, 2, -5)
 	scene.SetAmbient(1, 1, 1)
 	scene.SetSize(640, 480)
@@ -79,46 +80,50 @@ func (s *Scene) AddGlobalSetting(setting string) {
 	s.globalSettings = append(s.globalSettings, setting)
 }
 
-// Render ...
-func (s *Scene) Render(filename string) {
-	now := time.Now()
-	elapsed := now.Sub(currentTime)
-	currentTime = now
-	fmt.Printf("%v\n", elapsed)
-	fmt.Print("creating pov file...  ")
-	file, err := os.Create(filename)
+// WritePOV ...
+func (s *Scene) WritePOV() {
+	builder := strings.Builder{}
+	file, err := os.Create(s.filename)
 	defer file.Close()
 	if err != nil {
 		log.Fatal(err)
 	}
 	for _, directive := range s.languageDirectives {
-		file.WriteString(string(directive) + "\n")
+		builder.WriteString(string(directive) + "\n")
 	}
 	str := fmt.Sprintf("global_settings { ambient_light rgb %s }\n", s.ambient.String())
-	file.WriteString(str)
-	file.WriteString(s.Camera.String() + "\n")
+	builder.WriteString(str)
+	builder.WriteString(s.Camera.String() + "\n")
 	for _, obj := range s.renderables {
-		file.WriteString(obj.String() + "\n")
+		builder.WriteString(obj.String() + "\n")
 	}
 	for _, setting := range s.globalSettings {
-		file.WriteString(string(setting) + "\n")
+		builder.WriteString(string(setting) + "\n")
 	}
 
+	file.WriteString(builder.String())
+
+}
+
+// Render ...
+func (s *Scene) Render() {
 	w := fmt.Sprintf("+W%d", s.width)
 	h := fmt.Sprintf("+H%d", s.height)
-	cmd := exec.Command("povray", filename, "display=false", w, h)
-	now = time.Now()
-	elapsed = now.Sub(currentTime)
-	currentTime = now
-	fmt.Printf("%v\n", elapsed)
+	cmd := exec.Command("povray", s.filename, "display=false", w, h)
 	fmt.Print("rendering image...  ")
-	err = cmd.Run()
+	err := cmd.Run()
 	if err != nil {
 		log.Fatal(err)
 	}
+}
 
-	now = time.Now()
-	elapsed = now.Sub(currentTime)
-	currentTime = now
-	fmt.Printf("%v\n", elapsed)
+// RenderAnim ...
+func (s *Scene) RenderAnim() {
+	w := fmt.Sprintf("+W%d", s.width)
+	h := fmt.Sprintf("+H%d", s.height)
+	cmd := exec.Command("povray", s.filename, "display=false", w, h, "FINAL_FRAME=360")
+	err := cmd.Run()
+	if err != nil {
+		log.Fatal(err)
+	}
 }

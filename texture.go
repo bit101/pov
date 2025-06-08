@@ -8,7 +8,6 @@ type Texture struct {
 	preset    string
 	color     string
 	transform Transform
-	rgb       *Vector3
 }
 
 // PresetTexture ...
@@ -23,7 +22,7 @@ func ColorTexture(color string) *Texture {
 
 // RGBTexture ...
 func RGBTexture(r, g, b float64) *Texture {
-	return &Texture{rgb: &Vector3{r, g, b}, transform: Transform{}}
+	return &Texture{color: fmt.Sprintf("rgb %s" + NewVector3(r, g, b).String()), transform: Transform{}}
 }
 
 // UniScale ...
@@ -64,12 +63,5 @@ func (t *Texture) String() string {
   }`, t.color, t.transform.String())
 	}
 
-	if t.rgb != nil {
-		return fmt.Sprintf(`
-  texture {
-    pigment { rgb %s }
-    %s
-  }`, t.rgb.String(), t.transform.String())
-	}
 	return "texture { pigment { color White } }"
 }

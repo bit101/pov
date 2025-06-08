@@ -10,19 +10,19 @@ import (
 // Plane ...
 type Plane struct {
 	Object
-	y float64
+	y string
 }
 
 // NewPlane ...
 func NewPlane(y float64) *Plane {
-	return &Plane{NewObject(), y}
+	return &Plane{NewObject(), utils.Ftos(y)}
 }
 
 func (p *Plane) String() string {
 	str := fmt.Sprintf(`
 plane {
   y
-  %f
+  %s
   %s
   %s
 }`, p.y, p.Texture.String(), p.transform.String())

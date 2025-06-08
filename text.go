@@ -12,7 +12,7 @@ type Text struct {
 	Object
 	font      string
 	text      string
-	thickness float64
+	thickness string
 }
 
 // NewText ...
@@ -21,7 +21,7 @@ func NewText(font, text string, thickness float64) *Text {
 		NewObject(),
 		font,
 		text,
-		thickness,
+		utils.Ftos(thickness),
 	}
 }
 
@@ -30,11 +30,11 @@ func (t *Text) String() string {
 text {
   ttf %q
   %q
-  %f
-  %f
+  %s
+  %s
   %s
   %s
 }
-`, t.font, t.text, t.thickness, 0.0, t.Texture.String(), t.transform.String())
+`, t.font, t.text, t.thickness, "0.0", t.Texture.String(), t.transform.String())
 	return utils.RemoveEmptyLines(str)
 }

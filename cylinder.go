@@ -10,14 +10,14 @@ import (
 // Cylinder ...
 type Cylinder struct {
 	Object
-	location0 Vector3
-	location1 Vector3
-	radius    float64
+	location0 string
+	location1 string
+	radius    string
 }
 
 // NewCylinder ...
 func NewCylinder(x0, y0, z0, x1, y1, z1, radius float64) *Cylinder {
-	return &Cylinder{NewObject(), Vector3{x0, y0, z0}, Vector3{x1, y1, z1}, radius}
+	return &Cylinder{NewObject(), NewVector3(x0, y0, z0).String(), NewVector3(x1, y1, z1).String(), utils.Ftos(radius)}
 }
 
 // String ...
@@ -26,9 +26,9 @@ func (c *Cylinder) String() string {
 cylinder {
   %s
   %s
-  %f
   %s
   %s
-}`, c.location0.String(), c.location1.String(), c.radius, c.Texture.String(), c.transform.String())
+  %s
+}`, c.location0, c.location1, c.radius, c.Texture.String(), c.transform.String())
 	return utils.RemoveEmptyLines(str)
 }

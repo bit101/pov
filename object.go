@@ -34,3 +34,8 @@ func (o *Object) Translate(x, y, z float64) {
 func (o *Object) Rotate(x, y, z float64) {
 	o.transform.Rotate(x, y, z)
 }
+
+// StringTransform ...
+func (o *Object) StringTransform(s string) {
+	o.transform.StringTransform(s)
+}

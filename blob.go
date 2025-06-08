@@ -3,6 +3,7 @@ package pov
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/bit101/pov/utils"
 )
@@ -10,28 +11,28 @@ import (
 // Blob ...
 type Blob struct {
 	Object
-	threshold float64
+	threshold string
 	spheres   []*BlobSphere
 }
 
 // NewBlob ...
 func NewBlob(threshold float64, spheres []*BlobSphere) *Blob {
-	return &Blob{NewObject(), threshold, spheres}
+	return &Blob{NewObject(), utils.Ftos(threshold), spheres}
 }
 
 // String ...
 func (b *Blob) String() string {
-	spheres := ""
-	for _, s := range b.spheres {
-		spheres += s.String() + "\n"
+	builder := strings.Builder{}
+	for _, obj := range b.spheres {
+		builder.WriteString(obj.String() + "\n")
 	}
 	str := fmt.Sprintf(`
 blob {
-  threshold %f
   %s
   %s
   %s
-}`, b.threshold, spheres, b.Texture.String(), b.transform.String())
+  %s
+}`, b.threshold, builder.String(), b.Texture.String(), b.transform.String())
 	return utils.RemoveEmptyLines(str)
 }
 
@@ -42,14 +43,14 @@ blob {
 // BlobSphere ...
 type BlobSphere struct {
 	Sphere
-	strength float64
+	strength string
 }
 
 // NewBlobSphere ...
 func NewBlobSphere(x, y, z, radius, strength float64) *BlobSphere {
 	return &BlobSphere{
 		*NewSphere(x, y, z, radius),
-		strength,
+		utils.Ftos(strength),
 	}
 }
 
@@ -57,8 +58,8 @@ func (b *BlobSphere) String() string {
 	str := fmt.Sprintf(`
 sphere {
   %s
-  %f
-  %f
-}`, b.location.String(), b.radius, b.strength)
+  %s
+  %s
+}`, b.location, b.radius, b.strength)
 	return utils.RemoveEmptyLines(str)
 }
